@@ -1,7 +1,8 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Always use named parameter and direct process.env.API_KEY
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const fetchBookDetails = async (title: string, author: string) => {
   try {
@@ -24,7 +25,8 @@ export const fetchBookDetails = async (title: string, author: string) => {
       }
     });
 
-    return JSON.parse(response.text);
+    // Directly access the .text property
+    return JSON.parse(response.text || '{}');
   } catch (error) {
     console.error("Error fetching book details:", error);
     return null;
